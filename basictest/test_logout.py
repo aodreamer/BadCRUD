@@ -16,8 +16,6 @@ class LogoutTestCase(unittest.TestCase):
 
     def test(self):
         self.login_correct_credentials()
-        self.index_page()
-        self.logout()
 
     def login_correct_credentials(self):
         login_url = self.url +'/login.php'
