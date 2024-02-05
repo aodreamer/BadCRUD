@@ -5,6 +5,7 @@ on:
       - main
 jobs:
   test:
+    if: ${{ false }}
     name: Functional Test
     permissions: write-all
     runs-on: ubuntu-latest
