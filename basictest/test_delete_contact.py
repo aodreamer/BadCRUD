@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import time
 
 class LogoutTestCase(unittest.TestCase):
     username = ""
@@ -42,6 +43,7 @@ class LogoutTestCase(unittest.TestCase):
 
     def test_4_click_OK_confir_delete(self):
         WebDriverWait(self.browser, 10).until(EC.alert_is_present()).accept()
+        time.sleep(3)
         expected_result = self.username
         table = self.browser.find_element(By.ID,"employee")
         rows = table.find_elements(By.TAG_NAME, "tr")
