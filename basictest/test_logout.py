@@ -21,6 +21,7 @@ class LogoutTestCase(unittest.TestCase):
 
     def login_correct_credentials(self):
         login_url = self.url +'/login.php'
+        print(login_url)
         self.browser.get(login_url)
 
         self.browser.find_element(By.ID, 'inputUsername').send_keys('admin')
