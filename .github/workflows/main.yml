@@ -41,6 +41,9 @@ jobs:
       - name: Install Selenium client
         run: pip install -U selenium pytest pytest-xdist
 
+      - name: Install pillow
+        run: pip install pillow
+
       - name: Run tests using pytest
         run: |
           pytest -v basictest/
