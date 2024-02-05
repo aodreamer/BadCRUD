@@ -41,12 +41,9 @@ jobs:
       - name: Install Selenium client
         run: pip install -U selenium pytest pytest-xdist
 
-      - name: Install pillow
-        run: pip install pillow
-
       - name: Run tests using pytest
         run: |
-          pytest -v -n 2 basictest/
+          pytest -v -n 5 basictest/
 
       - name: stop docker
         run: docker stop docker-apache
