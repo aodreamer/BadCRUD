@@ -7,12 +7,12 @@ class LogoutTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         option = webdriver.FirefoxOptions()
-        option.add_argument('--headless')
+        # option.add_argument('--headless')
         cls.browser = webdriver.Firefox(options=option)
         try:
             cls.url = os.environ['URL']
         except:
-            cls.url = "http://localhost"
+            cls.url = "http://localhost/BadCRUD"
 
     def test(self):
         self.login_correct_credentials()
