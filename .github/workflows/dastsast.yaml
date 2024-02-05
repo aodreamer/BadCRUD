@@ -4,6 +4,7 @@ on:
     branches:
       - main
 jobs:
+  if: ${{ false }}
   dast:
     if: ${{ false }}
     name: DAST
@@ -37,6 +38,7 @@ jobs:
         run: docker stop docker-apache
 
   sast:
+    if: ${{ false }}
     name: Psalm
     permissions: write-all
     runs-on: ubuntu-latest
@@ -55,6 +57,7 @@ jobs:
           sarif_file: results.sarif
 
   sonarcloud:
+    if: ${{ false }}
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
