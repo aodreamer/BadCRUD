@@ -39,10 +39,6 @@ class LogoutTestCase(unittest.TestCase):
         actual_result = WebDriverWait(self.browser, 10).until(EC.alert_is_present()).text
         
         self.assertIn(expected_result, actual_result)
-          
-    def test_4_click_OK_confir_delete(self):
-
-        WebDriverWait(self.browser, 10).until(EC.alert_is_present()).accept()
 
     def test_4_click_OK_confir_delete(self):
         WebDriverWait(self.browser, 10).until(EC.alert_is_present()).accept()
