@@ -28,11 +28,19 @@ class LogoutTestCase(unittest.TestCase):
         actual_result = self.browser.find_element(By.XPATH, "/html/body/div[1]/h2").text                
         self.assertIn(expected_result, actual_result)
 
-    def test_3_click_signout(self):           
-        expected_result = "Please sign in"
-        self.browser.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/div/a[3]").click()
-        actual_result = self.browser.find_element(By.XPATH, "/html/body/form/h1").text                
+    def test_3_click_createcontact(self):           
+        expected_result = "Add new contact"
+        self.browser.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/a").click()
+        actual_result = self.browser.find_element(By.XPATH, "/html/body/div[1]/div/div/div/div[1]/h5").text                
         self.assertIn(expected_result, actual_result)
+    
+    def test_4_click_cancel(self):
+        expected_result = "Halo, admin"
+        self.browser.find_element(By.XPATH, "/html/body/div[1]/div/div/div/div[1]/form/a").click()
+        actual_result = self.browser.find_element(By.XPATH, "/html/body/div[1]/h2").text
+        self.assertIn(expected_result, actual_result)
+    
+        
 
     @classmethod
     def tearDownClass(cls):
