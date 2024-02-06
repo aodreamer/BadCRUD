@@ -7,7 +7,12 @@ def get_session():
 
     try:
         # Melakukan login (sesuaikan dengan langkah login pada aplikasi Anda)
-        driver.get("https://example.com/login")
+        try:
+            url = os.environ['URL']
+        except:
+            url = "http://localhost/BadCRUD"
+            
+        driver.get(url)
         username_input = driver.find_element_by_id("username")
         password_input = driver.find_element_by_id("password")
         submit_button = driver.find_element_by_id("submit")
