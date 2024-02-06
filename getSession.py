@@ -17,7 +17,7 @@ def get_session():
         submit_button.click()
 
         # Mendapatkan nilai sesi (cookie)
-        session_cookie = driver.get_cookie("session_cookie_name")["value"]
+        session_cookie = driver.get_cookie("PHPSESSID")["value"]
         print(f"Sesi Login: {session_cookie}")
 
         # Menyimpan nilai sesi ke dalam file
