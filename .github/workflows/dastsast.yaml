@@ -44,13 +44,21 @@ jobs:
       - name: Get and Save Session
         run: |
           python getSession.py
+      - name: Read Session File and Set Cookie Value
+        run: |
+          COOKIE_VALUE=$(cat /path/to/session_file.txt)
+          echo "COOKIE_VALUE=$COOKIE_VALUE" >> $GITHUB_ENV
 
       - name: ZAP Scan with Session
         uses: hermanka/action-full-scan@master
         with:
           target: ${{ env.URL }}
           network_name: isolated
-          # cmd_options: "-config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true -config api.addrs.addr.url=https://$GITHUB_WORKSPACE/session_file.txt"
+          cmd_options: >
+            -config cookies.prefix=PHPSESSID
+            -config cookies.cookie.name=PHPSESSID
+            -config cookies.cookie.value=${{ env.COOKIE_VALUE }}
+
       - name: stop docker
         run: docker stop docker-apache
 
