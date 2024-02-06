@@ -60,7 +60,7 @@
             <pollunits>REQUESTS</pollunits>
             <form>
                 <loginurl>http://172.17.0.1/login.php</loginurl>
-                <loginbody>username={%username%}&amp;password=nimda666!</loginbody>
+                <loginbody>username=admin&amp;password=nimda666!</loginbody>
                 <loginpageurl>http://172.17.0.1/login.php</loginpageurl>
             </form>
         </authentication>
