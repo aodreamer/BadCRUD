@@ -38,23 +38,23 @@ jobs:
       - name: Check the Hub
         run: curl http://localhost:4444/ui
 
-      # - name: Install Selenium client
-      #   run: pip install -U selenium pytest pytest-xdist
+      - name: Install Selenium client
+        run: pip install -U selenium pytest pytest-xdist
 
-      # - name: Get and Save Session
-      #   run: |
-      #     python getSession.py
-      # - name: Read Session File and Set Cookie Value
-      #   run: |
-      #     COOKIE_VALUE=$(cat session_file.txt)
-      #     echo "COOKIE_VALUE=$COOKIE_VALUE" >> $GITHUB_ENV
+      - name: Get and Save Session
+        run: |
+          python getSession.py
+      - name: Read Session File and Set Cookie Value
+        run: |
+          COOKIE_VALUE=$(cat session_file.txt)
+          echo "COOKIE_VALUE=$COOKIE_VALUE" >> $GITHUB_ENV
 
       - name: ZAP Scan with Session
         uses: hermanka/action-full-scan@master
         with:
           target: ${{ env.URL }}
           network_name: isolated
-          cmd_options: -j -n badcrud.context
+          cmd_options: -j -n badcrud.context -z "-config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true -config api.addrs.addr.url=${{ env.COOKIE_VALUE }}-config cookies.prefix=PHPSESSID -config cookies.cookie.name=PHPSESSID -config cookies.cookie.value=${{ env.COOKIE_VALUE }}"
 
       - name: stop docker
         run: docker stop docker-apache
