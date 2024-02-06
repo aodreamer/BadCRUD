@@ -28,11 +28,29 @@ jobs:
           URL=http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1)
           echo "URL=$URL" >> $GITHUB_ENV
 
-      - name: ZAP Scan
+      - name: Selenium Preparation
+        run: docker run --network=isolated -d -p 4444:4444 -p 7900:7900 -v /dev/shm:/dev/shm --name firefox-standalone selenium/standalone-firefox:latest
+
+      - name: Wait for Selenium Hub
+        run: sh wait.sh
+
+      - name: Check the Hub
+        run: curl http://localhost:4444/ui
+
+      - name: Install Selenium client
+        run: pip install -U selenium pytest pytest-xdist
+
+      - name: Get and Save Session
+        run: python get_session.py
+        env:
+          ZAPSESSION: ${{ secrets.ZAPSESSION }}
+
+      - name: ZAP Scan with Session
         uses: hermanka/action-full-scan@master
         with:
           target: ${{ env.URL }}
           network_name: isolated
+          session_path: session_file.txt
 
       - name: stop docker
         run: docker stop docker-apache
