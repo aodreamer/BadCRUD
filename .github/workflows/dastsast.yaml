@@ -54,7 +54,7 @@ jobs:
         with:
           target: ${{ env.URL }}
           network_name: isolated
-          cmd_options: -j -n badcrud.context -z "-config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true -config api.addrs.addr.url=${{ env.COOKIE_VALUE }}-config cookies.prefix=PHPSESSID -config cookies.cookie.name=PHPSESSID -config cookies.cookie.value=${{ env.COOKIE_VALUE }}"
+          cmd_options: -z "-config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true -config api.addrs.addr.url=${{ env.COOKIE_VALUE }}-config cookies.prefix=PHPSESSID -config cookies.cookie.name=PHPSESSID -config cookies.cookie.value=${{ env.COOKIE_VALUE }}"
 
       - name: stop docker
         run: docker stop docker-apache
@@ -83,9 +83,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
