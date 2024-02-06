@@ -14,25 +14,29 @@ class LogoutTestCase(unittest.TestCase):
             cls.url = os.environ['URL']
         except:
             cls.url = "http://localhost/BadCRUD"
+    def testOrder(self):
+        self.sign_in_page_check()
+        self.fill_cred()
+        self.click_signout()
 
     @pytest.mark.run(order=1)
-    def test_1_sign_in_page_check(self):
+    def sign_in_page_check(self):
         self.browser.get(self.url)
         expected_result = "Please sign in"        
         actual_result = self.browser.find_element(By.XPATH, "/html/body/form/h1").text
         self.assertIn(expected_result, actual_result)
 
     @pytest.mark.run(order=2)
-    def test_2_fill_cred(self):           
+    def fill_cred(self):           
         expected_result = "Halo, admin"
         self.browser.find_element(By.NAME, "username").send_keys("admin")
         self.browser.find_element(By.NAME, "password").send_keys("nimda666!")
         self.browser.find_element(By.XPATH, "/html/body/form/button").click()
         actual_result = self.browser.find_element(By.XPATH, "/html/body/div[1]/h2").text                
         self.assertIn(expected_result, actual_result)
-        
+
     @pytest.mark.run(order=3)
-    def test_3_click_signout(self):           
+    def click_signout(self):           
         expected_result = "Please sign in"
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/div/a[3]").click()
         actual_result = self.browser.find_element(By.XPATH, "/html/body/form/h1").text                

@@ -15,16 +15,23 @@ class LogoutTestCase(unittest.TestCase):
             cls.url = os.environ['URL']
         except:
             cls.url = "http://localhost/BadCRUD"
+    
+    def testOrder(self):
+        self.sign_in_page_check()
+        self.fill_cred()
+        self.click_first_edit_button()
+        self.fill_new_name()
+        self.check_updated_data()
 
     @pytest.mark.run(order=1)
-    def test_1_sign_in_page_check(self):
+    def sign_in_page_check(self):
         self.browser.get(self.url)
         expected_result = "Please sign in"        
         actual_result = self.browser.find_element(By.XPATH, "/html/body/form/h1").text
         self.assertIn(expected_result, actual_result)
 
     @pytest.mark.run(order=2)
-    def test_2_fill_cred(self):           
+    def fill_cred(self):           
         expected_result = "Halo, admin"
         self.browser.find_element(By.NAME, "username").send_keys("admin")
         self.browser.find_element(By.NAME, "password").send_keys("nimda666!")
@@ -33,7 +40,7 @@ class LogoutTestCase(unittest.TestCase):
         self.assertIn(expected_result, actual_result)
         
     @pytest.mark.run(order=3)
-    def test_3_click_first_edit_button(self):
+    def click_first_edit_button(self):
         expected_result = "Change contact"
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/div/div[2]/div/table/tbody/tr[1]/td[7]/a[1]").click()
         actual_result = self.browser.title
@@ -41,7 +48,7 @@ class LogoutTestCase(unittest.TestCase):
         self.assertIn(expected_result, actual_result)
 
     @pytest.mark.run(order=4)          
-    def test_4_fill_new_name(self):
+    def fill_new_name(self):
         expected_result = "Halo, admin"
         self.browser.find_element(By.NAME, "name").clear()
         self.browser.find_element(By.NAME, "name").send_keys("user baru")
@@ -50,7 +57,7 @@ class LogoutTestCase(unittest.TestCase):
         self.assertIn(expected_result, actual_result)
 
     @pytest.mark.run(order=5)
-    def test_5_check_updated_data(self):
+    def check_updated_data(self):
         expected_result = "user baru"
         table = self.browser.find_element(By.ID,"employee")
         rows = table.find_elements(By.TAG_NAME, "tr")

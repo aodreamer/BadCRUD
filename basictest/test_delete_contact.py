@@ -18,16 +18,22 @@ class LogoutTestCase(unittest.TestCase):
             cls.url = os.environ['URL']
         except:
             cls.url = "http://localhost/BadCRUD"
+    
+    def testOrder(self):
+        self.sign_in_page_check()
+        self.fill_cred()
+        self.click_first_delete_button()
+        self.click_OK_confir_delete()
 
     @pytest.mark.run(order=1)
-    def test_1_sign_in_page_check(self):
+    def sign_in_page_check(self):
         self.browser.get(self.url)
         expected_result = "Please sign in"        
         actual_result = self.browser.find_element(By.XPATH, "/html/body/form/h1").text
         self.assertIn(expected_result, actual_result)
 
     @pytest.mark.run(order=2)
-    def test_2_fill_cred(self):           
+    def fill_cred(self):           
         expected_result = "Halo, admin"
         self.browser.find_element(By.NAME, "username").send_keys("admin")
         self.browser.find_element(By.NAME, "password").send_keys("nimda666!")
@@ -36,7 +42,7 @@ class LogoutTestCase(unittest.TestCase):
         self.assertIn(expected_result, actual_result)
         
     @pytest.mark.run(order=3)
-    def test_3_click_first_delete_button(self):
+    def click_first_delete_button(self):
         expected_result = "Are you sure you want to delete this item?"
         self.username = self.browser.find_element(By.XPATH, '//*[@id="employee"]/tbody/tr[1]/td[2]')
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/div/div[2]/div/table/tbody/tr[1]/td[7]/a[2]").click()
@@ -45,7 +51,7 @@ class LogoutTestCase(unittest.TestCase):
         self.assertIn(expected_result, actual_result)
 
     @pytest.mark.run(order=4)
-    def test_4_click_OK_confir_delete(self):
+    def click_OK_confir_delete(self):
         WebDriverWait(self.browser, 10).until(EC.alert_is_present()).accept()
         time.sleep(3)
         expected_result = self.username

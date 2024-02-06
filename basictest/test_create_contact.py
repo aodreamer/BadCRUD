@@ -14,15 +14,22 @@ class LogoutTestCase(unittest.TestCase):
         except:
             cls.url = "http://localhost/BadCRUD"
 
+    def testOrder(self):
+        self.sign_in_page_check()
+        self.fill_cred()
+        self.click_createcontact()
+        self.fill_contactdata()
+        self.check_data_inputed()
+
     @pytest.mark.run(order=1)
-    def test_1_sign_in_page_check(self):
+    def sign_in_page_check(self):
         self.browser.get(self.url)
         expected_result = "Please sign in"        
         actual_result = self.browser.find_element(By.XPATH, "/html/body/form/h1").text
         self.assertIn(expected_result, actual_result)
 
     @pytest.mark.run(order=2)
-    def test_2_fill_cred(self):           
+    def fill_cred(self):           
         expected_result = "Halo, admin"
         self.browser.find_element(By.NAME, "username").send_keys("admin")
         self.browser.find_element(By.NAME, "password").send_keys("nimda666!")
@@ -31,14 +38,14 @@ class LogoutTestCase(unittest.TestCase):
         self.assertIn(expected_result, actual_result)
 
     @pytest.mark.run(order=3)
-    def test_3_click_createcontact(self):           
+    def click_createcontact(self):           
         expected_result = "Add new contact"
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div[1]/div/a").click()
         actual_result = self.browser.find_element(By.XPATH, "/html/body/div[1]/div/div/div/div[1]/h5").text                
         self.assertIn(expected_result, actual_result)
  
     @pytest.mark.run(order=4)    
-    def test_4_fill_contactdata(self):
+    def fill_contactdata(self):
         expected_result = "Halo, admin"
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div/div/div/div[1]/form/input[1]").send_keys("nael")
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div/div/div/div[1]/form/input[2]").send_keys("nael@gmail.com")
@@ -49,7 +56,7 @@ class LogoutTestCase(unittest.TestCase):
         self.assertIn(expected_result, actual_result)
 
     @pytest.mark.run(order=5)
-    def test_5_check_data_inputed(self):
+    def check_data_inputed(self):
         expected_result = "nael"
         self.browser.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/div/div[3]/div[2]/div/ul/li[4]/a").click()
         table = self.browser.find_element(By.ID,"employee")
