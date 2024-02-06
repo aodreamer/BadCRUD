@@ -54,10 +54,7 @@ jobs:
         with:
           target: ${{ env.URL }}
           network_name: isolated
-          cmd_options: >
-            -config cookies.prefix=PHPSESSID
-            -config cookies.cookie.name=PHPSESSID
-            -config cookies.cookie.value=${{ env.COOKIE_VALUE }}
+          cmd_options: -z "-config cookies.prefix=PHPSESSID -config cookies.cookie.name=PHPSESSID -config cookies.cookie.value=${{ env.COOKIE_VALUE }}"
 
       - name: stop docker
         run: docker stop docker-apache
