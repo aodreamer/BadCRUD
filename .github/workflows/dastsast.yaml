@@ -39,7 +39,7 @@ jobs:
         run: pip install -U selenium pytest pytest-xdist
 
       - name: Get and Save Session
-        run: python get_session.py
+        run: python getSession.py
         env:
           ZAPSESSION: ${{ secrets.ZAPSESSION }}
 
