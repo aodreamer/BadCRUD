@@ -4,7 +4,7 @@ import os
 
 def get_session():
     # Membuat instance browser (gunakan webdriver sesuai kebutuhan)
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
 
     try:
         # Melakukan login (sesuaikan dengan langkah login pada aplikasi Anda)
