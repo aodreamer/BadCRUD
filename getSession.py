@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 import os
 
 def get_session():
@@ -11,15 +12,11 @@ def get_session():
             url = os.environ['URL']
         except:
             url = "http://localhost/BadCRUD"
-            
-        driver.get(url)
-        username_input = driver.find_element_by_id("username")
-        password_input = driver.find_element_by_id("password")
-        submit_button = driver.find_element_by_id("submit")
 
-        username_input.send_keys("your_username")
-        password_input.send_keys("your_password")
-        submit_button.click()
+        driver.get(url)
+        driver.find_element(By.NAME, "username").send_keys("admin")
+        driver.find_element(By.NAME, "password").send_keys("nimda666!")
+        driver.find_element(By.XPATH, "/html/body/form/button").click()
 
         # Mendapatkan nilai sesi (cookie)
         session_cookie = driver.get_cookie("PHPSESSID")["value"]
