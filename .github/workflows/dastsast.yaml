@@ -42,7 +42,9 @@ jobs:
         run: pip install -U selenium pytest pytest-xdist
 
       - name: Get and Save Session
-        run: python getSession.py
+        run: |
+          python getSession.py
+          mv session_file.txt $GITHUB_WORKSPACE/session_file.txt
 
       - name: ZAP Scan with Session
         uses: hermanka/action-full-scan@master
@@ -50,7 +52,6 @@ jobs:
           target: ${{ env.URL }}
           network_name: isolated
           cmd_options: "-config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true -config api.addrs.addr.url=https://$GITHUB_WORKSPACE/session_file.txt"
-
       - name: stop docker
         run: docker stop docker-apache
 
