@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import pytest
 
 class LogoutTestCase(unittest.TestCase):
     username = ""
@@ -18,12 +19,14 @@ class LogoutTestCase(unittest.TestCase):
         except:
             cls.url = "http://localhost/BadCRUD"
 
+    @pytest.mark.run(order=1)
     def test_1_sign_in_page_check(self):
         self.browser.get(self.url)
         expected_result = "Please sign in"        
         actual_result = self.browser.find_element(By.XPATH, "/html/body/form/h1").text
         self.assertIn(expected_result, actual_result)
 
+    @pytest.mark.run(order=2)
     def test_2_fill_cred(self):           
         expected_result = "Halo, admin"
         self.browser.find_element(By.NAME, "username").send_keys("admin")
@@ -32,7 +35,7 @@ class LogoutTestCase(unittest.TestCase):
         actual_result = self.browser.find_element(By.XPATH, "/html/body/div[1]/h2").text        
         self.assertIn(expected_result, actual_result)
         
-
+    @pytest.mark.run(order=3)
     def test_3_click_first_delete_button(self):
         expected_result = "Are you sure you want to delete this item?"
         self.username = self.browser.find_element(By.XPATH, '//*[@id="employee"]/tbody/tr[1]/td[2]')
@@ -41,6 +44,7 @@ class LogoutTestCase(unittest.TestCase):
         
         self.assertIn(expected_result, actual_result)
 
+    @pytest.mark.run(order=4)
     def test_4_click_OK_confir_delete(self):
         WebDriverWait(self.browser, 10).until(EC.alert_is_present()).accept()
         time.sleep(3)
