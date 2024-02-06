@@ -4,7 +4,9 @@ import os
 
 def get_session():
     # Membuat instance browser (gunakan webdriver sesuai kebutuhan)
-    driver = webdriver.Firefox()
+    option = webdriver.FirefoxOptions()
+    option.add_argument('--headless')
+    driver = webdriver.Firefox(options=option)
 
     try:
         # Melakukan login (sesuaikan dengan langkah login pada aplikasi Anda)
